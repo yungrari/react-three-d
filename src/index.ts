@@ -1,2 +1,4 @@
-import MyCounter from './components/App'
-export { MyCounter }
+import Gallery from './components/Gallery'
+import Flip from './components/Flip'
+
+export { Gallery, Flip }
