@@ -20,9 +20,13 @@ function Flip({ children, height, isFlipped, perspective, style, width, ...props
           height: '100%',
           cursor: 'pointer',
           transition: 'transform 1s',
+          WebkitTransition: 'transform 1s',
           transformOrigin: 'center right',
+          WebkitTransformOrigin: 'center right',
           transformStyle: 'preserve-3d',
+          WebkitTransformStyle: 'preserve-3d',
           transform: isFlipped ? 'translateX(-100%) rotateY(-180deg)' : 'none',
+          WebkitTransform: isFlipped ? 'translateX(-100%) rotateY(-180deg)' : 'none',
         }}
       >
         <div
@@ -31,6 +35,8 @@ function Flip({ children, height, isFlipped, perspective, style, width, ...props
             width: '100%',
             height: '100%',
             backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            MozBackfaceVisibility: 'hidden',
           }}
         >
           {firstChild}
@@ -42,7 +48,10 @@ function Flip({ children, height, isFlipped, perspective, style, width, ...props
             width: '100%',
             height: '100%',
             backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            MozBackfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
+            WebkitTransform: 'rotateY(180deg)',
           }}
         >
           {lastChild}
