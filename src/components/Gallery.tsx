@@ -262,6 +262,14 @@ function Gallery({
     width,
   ])
 
+  const carouselTransform = getTransform({
+    count,
+    index: selectedIndex,
+    isHorizontal,
+    width,
+    height,
+  })
+
   return (
     <div
       style={{
@@ -278,16 +286,15 @@ function Gallery({
         style={{
           height: '100%',
           position: 'absolute',
+          WebkitTransformStyle: 'preserve-3d',
+          MozTransformStyle: 'preserve-3d',
           transformStyle: 'preserve-3d',
           width: '100%',
+          WebkitTransition: '-webkit-transform 400ms ease-in-out',
+          MozTransition: '-moz-transform 400ms ease-in-out',
           transition: 'transform 400ms ease-in-out',
-          transform: getTransform({
-            count,
-            index: selectedIndex,
-            isHorizontal,
-            width,
-            height,
-          }),
+          WebkitTransform: carouselTransform,
+          transform: carouselTransform,
         }}
         ref={carouselRef}
       >
@@ -316,6 +323,7 @@ function Gallery({
               position: 'absolute',
               top: '0',
               width: '100%',
+              WebkitTransform: `${fn}(${rotate}deg) translateZ(${translate}${unit})`,
               transform: `${fn}(${rotate}deg) translateZ(${translate}${unit})`,
             },
             ...cellComponentProps,

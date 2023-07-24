@@ -3,13 +3,20 @@ import React, { Children, memo } from 'react'
 export type FlipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & {
   children: [React.ReactNode, React.ReactNode]
   height?: React.CSSProperties['height']
-  isFlipped?: boolean
+  isFlipped: boolean
+  onFlipEnd?: React.TransitionEventHandler<HTMLDivElement>
   perspective?: React.CSSProperties['perspective']
   width?: React.CSSProperties['width']
 }
 
-function Flip({ children, height, isFlipped, perspective, style, width, ...props }: FlipProps) {
+function Flip({ children, height, isFlipped, onFlipEnd, perspective, style, width, ...props }: FlipProps) {
   const [firstChild, lastChild] = Children.toArray(children)
+
+  function handleFlipEnd(event: React.TransitionEvent<HTMLDivElement>) {
+    if (onFlipEnd) {
+      onFlipEnd(event)
+    }
+  }
 
   return (
     <div style={{ ...style, height, perspective, width }} {...props}>
@@ -28,6 +35,7 @@ function Flip({ children, height, isFlipped, perspective, style, width, ...props
           transform: isFlipped ? 'translateX(-100%) rotateY(-180deg)' : 'none',
           WebkitTransform: isFlipped ? 'translateX(-100%) rotateY(-180deg)' : 'none',
         }}
+        onTransitionEnd={handleFlipEnd}
       >
         <div
           style={{
